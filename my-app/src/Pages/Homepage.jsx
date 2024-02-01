@@ -24,10 +24,10 @@ const Homepage = () => {
     }
     useEffect(() => {
         searchHandler();
-    }, [input]);
+    }, []);
     return (
         <>
-            <Search searchHandler={searchHandler} setInput={setInput} />
+            <Search searchHandler={() => { searchHandler() }} setInput={setInput} />
             <Flex><Photos data={data} /></Flex>
         </>
     )
