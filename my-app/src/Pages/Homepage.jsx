@@ -1,11 +1,25 @@
 import React from 'react'
 import Search from '../Components/Search'
+import Photos from '../Components/Photos'
+import { useState, useEffect } from 'react';
+import { createClient } from 'pexels';
 const Homepage = () => {
-
+    const client = createClient('UenxfAE597reOvqFO3ekcoWomHhFKDNQ7VvqExvdSrZVtICa8ZLmlPbA');
+    const [data, setData] = useState(null);
+    const searchHandler = () => {
+        client.photos.curated({ per_page: 16 }).then(photos => {
+            setData(photos);
+            console.log(photos);
+        });
+    }
+    useEffect(() => {
+        searchHandler();
+    }, []);
     return (
-        <div>
-            <Search />
-        </div>
+        <>
+            <Search searchHandler={searchHandler} />
+            <Photos data={data} />
+        </>
     )
 }
 
