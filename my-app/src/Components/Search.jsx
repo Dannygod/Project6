@@ -2,11 +2,11 @@ import React from 'react'
 import Button from "../Components/Button"
 import styled from 'styled-components'
 const Input = styled.input`
-font-size: 18px;
-padding: 5px;
-width: 300px;
-border: none;
-border-bottom: 1px solid #757575;
+    font-size: 18px;
+    padding: 5px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
 `
 const Search = ({ searchHandler, setInput }) => {
     const inputHandler = (e) => {

@@ -9,7 +9,7 @@ const About = () => {
     return (
         <>
             <Flex>
-                <h2 width="100%">About</h2>
+                <h2>About</h2>
                 <div>
                     <UL>The Pexels API is a service that allows developers to access high-quality photos and videos from the Pexels platform.</UL>
                     <UL>It is updated with thousands of new images and videos every day, ensuring a wide variety of content.</UL>
