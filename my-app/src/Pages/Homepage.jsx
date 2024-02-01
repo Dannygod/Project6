@@ -4,7 +4,7 @@ import Photos from '../Components/Photos'
 import { useState, useEffect } from 'react';
 import { createClient } from 'pexels';
 const Homepage = () => {
-    const client = createClient('UenxfAE597reOvqFO3ekcoWomHhFKDNQ7VvqExvdSrZVtICa8ZLmlPbA');
+    const client = createClient(process.env.REACT_APP_PEXELS_API_KEY);
     const [data, setData] = useState(null);
     const searchHandler = () => {
         client.photos.curated({ per_page: 16 }).then(photos => {
