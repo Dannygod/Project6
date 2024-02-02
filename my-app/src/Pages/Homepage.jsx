@@ -9,7 +9,7 @@ const Homepage = () => {
     const client = createClient(process.env.REACT_APP_PEXELS_API_KEY);
     const [data, setData] = useState(null);
     const [input, setInput] = useState("");
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
     const searchHandler = () => {
         if (input !== "") {
             client.photos.search({ query: input, per_page: 16 }).then(photos => {
@@ -36,7 +36,7 @@ const Homepage = () => {
     }
     useEffect(() => {
         searchHandler();
-    }, []);
+    });
     return (
         <>
             <Search searchHandler={() => { searchHandler() }} setInput={setInput} />
