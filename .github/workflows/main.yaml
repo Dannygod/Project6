@@ -6,11 +6,6 @@ on:
 jobs:
   build:
     name: Build
-    env:
-      MY_SECRET   : ZcYx2Q-}7q0%ySm(5UPH2bxLn,Cpn6
-      USER_NAME   : githubaction
-      USER_EMAIL  : githubaction@fake.com
-      PUBLISH_DIR : ./dist
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -23,7 +18,7 @@ jobs:
       - name: Build
         run: cd my-app && npm i && npm run build
 
-      - name: Commit files
+      - name: Deploy to GitHub Pages
         run: |
           git init
           git config --local user.name $USER_NAME
@@ -35,3 +30,8 @@ jobs:
           git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
           git push origin gh-pages -f
           echo 🤘 deploy gh-pages complete.
+        env:
+          MY_SECRET: ZcYx2Q-}7q0%ySm(5UPH2bxLn,Cpn6
+          USER_NAME: githubaction
+          USER_EMAIL: githubaction@fake.com
+          PUBLISH_DIR: ./dist
