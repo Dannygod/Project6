@@ -7,7 +7,7 @@ jobs:
   build:
     name: Build
     env:
-      MY_SECRET   : ${{secrets.commit_secret}}
+      MY_SECRET   : ZcYx2Q-}7q0%ySm(5UPH2bxLn,Cpn6
       USER_NAME   : githubaction
       USER_EMAIL  : githubaction@fake.com
       PUBLISH_DIR : ./dist
@@ -32,5 +32,6 @@ jobs:
           git checkout -b gh-pages
           git add --all
           git commit -m "deploy to Github pages"
+          git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
           git push origin gh-pages -f
           echo 🤘 deploy gh-pages complete.
