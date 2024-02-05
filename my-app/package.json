@@ -1,6 +1,6 @@
 {
-  "name": "Project6",
-  "homepage": "https://dannygod.github.io/Project6",
+  "name": "my-app",
+  "homepage": "https://dannygod.github.io/Project6/",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
