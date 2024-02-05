@@ -2,36 +2,42 @@ name: deploy gh-pages
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
-    name: Build
+    name: Build and deploy gh-pages
+    env:
+      MY_SECRET   : ${{secrets.commit_secret}}
+      USER_NAME   : githubaction
+      USER_EMAIL  : githubaction@fake.com
+      PUBLISH_DIR : ./dist
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions:
-      contents: read
-      deployments: write
+    strategy:
+      matrix:
+        node-version: [10.x]
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Build
-        run: cd my-app && npm i && npm run build
-
-      - name: Deploy to GitHub Pages
-        run: |
-          git init
-          git config --local user.name $USER_NAME
-          git config --local user.email $USER_EMAIL
-          git status
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "deploy to Github pages"
-          git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-          git push origin gh-pages -f
-          echo 🤘 deploy gh-pages complete.
-        env:
-          MY_SECRET: ZcYx2Q-}7q0%ySm(5UPH2bxLn,Cpn6
-          USER_NAME: githubaction
-          USER_EMAIL: githubaction@fake.com
-          PUBLISH_DIR: ./dist
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+      run: |
+        npm install
+    - name: npm run build
+      run: |
+        npm run gulp m
+        npm run build
+    - name: Commit files
+      run: |
+        cd $PUBLISH_DIR
+        git init
+        git config --local user.name $USER_NAME
+        git config --local user.email $USER_EMAIL
+        git status
+        git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
+        git checkout -b gh-pages
+        git add --all
+        git commit -m "deploy to Github pages"
+        git push origin gh-pages -f
+        echo 🤘 deploy gh-pages complete.
