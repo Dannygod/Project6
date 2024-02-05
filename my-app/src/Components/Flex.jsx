@@ -6,6 +6,10 @@ const Flex = styled.div`
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
+    @media screen and (max-width: 768px){
+        display: flex;
+        flex-direction: row;
+    }
 `;
 
 export default Flex

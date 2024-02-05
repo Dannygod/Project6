@@ -4,7 +4,7 @@ const Photo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: transform 0.7s ease-in-out;
+    /* transition: transform 0.7s ease-in-out; */
     width: calc(25% - 20px);
     img{
         border-radius: 15px;
@@ -18,9 +18,9 @@ const Photo = styled.div`
         flex-direction: column;
         padding: 10px;
     }
-    /* :hover{
-            transform: scale(1.1);    
-    }      */
+    @media screen and (max-width: 768px){
+        width: calc(50% - 10px);
+    }
 `
 
 const Photos = ({ data }) => {

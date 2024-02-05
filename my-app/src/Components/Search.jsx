@@ -8,6 +8,12 @@ const Input = styled.input`
     border: none;
     border-bottom: 1px solid #757575;
 `
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+`
 const Search = ({ searchHandler, setInput }) => {
     const inputHandler = (e) => {
         setInput(e.target.value);
@@ -18,10 +24,10 @@ const Search = ({ searchHandler, setInput }) => {
     }
     return (
         <>
-            <form onSubmit={handleSubmit} action="">
+            <Form onSubmit={handleSubmit} action="">
                 <Input onChange={inputHandler} type="text" />
                 <Button onClick={searchHandler}>Search</Button>
-            </form>
+            </Form>
         </>
     )
 }
