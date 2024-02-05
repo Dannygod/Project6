@@ -12,8 +12,8 @@ jobs:
             contents: read
             deployments: write
     steps:
-      - name: Checkout Repo
+      name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Build
+      name: Build
         run: cd my-app && npm i && npm run build
