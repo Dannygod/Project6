@@ -16,18 +16,10 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install
-      run: |
-        npm install
-    - name: npm run build
-      run: |
-        npm run gulp m
-        npm run build
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+    - name: Build
+      run: cd my-app && npm i && npm run build
     - name: Commit files
       run: |
         cd $PUBLISH_DIR
