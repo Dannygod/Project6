@@ -10,7 +10,7 @@ jobs:
       MY_SECRET   : ${{secrets.commit_secret}}
       USER_NAME   : dannygod
       USER_EMAIL  : danny539425@gmail.com
-      PUBLISH_DIR : ./build
+      PUBLISH_DIR : ./my-app
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,6 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and build
       run: |
+        cd my-app
         npm ci
         npm run build
     - name: Deploy to GitHub Pages
