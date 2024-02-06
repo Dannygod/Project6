@@ -4,10 +4,10 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build-and-deploy:
     name: Build and deploy gh-pages
     env:
-      MY_SECRET   : ${{secrets.commit_secret}}
+      MY_SECRET   : ${{secrets.COMMIT_SECRET}}
       USER_NAME   : githubaction
       USER_EMAIL  : githubaction@fake.com
       PUBLISH_DIR : ./my-app
@@ -18,19 +18,19 @@ jobs:
       deployments: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
-    - name: Build
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Install and Build
       run: cd my-app && npm i && npm run build
-    - name: Commit files
-      run: |
-        cd $PUBLISH_DIR
-        git init
-        git config --local user.name $USER_NAME
-        git config --local user.email $USER_EMAIL
-        git status
-        git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-        git checkout -b gh-pages
-        git add --all
-        git commit -m "deploy to Github pages"
-        git push origin gh-pages -f
-        echo 🤘 deploy gh-pages complete.
+    - name: Handle Build Error
+      if: ${{ failure() }}
+      run: echo "Build failed" && exit 1
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        repo: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.COMMIT_SECRET }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: my-app/build # The folder the action should deploy.
+        CLEAN: true # Automatically remove old files from the deployment branch
